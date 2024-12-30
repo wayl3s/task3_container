@@ -3,18 +3,12 @@ services:
     image: qbittorrent:latest
     container_name: qbittorrent
     environment:
-      - DISPLAY=:0
-      - PUID=1000
-      - PGID=1000
+      - DISPLAY=${DISPLAY}
     network_mode: host
     volumes:
-      - ~/qbittorrent:/root/Downloads
-      - ~/qbitconfig:/root/.config/qBittorrent
-    ports:
-      - 9117:9117
-      - 9117:9117/udp
-      - 6881:6881
-      - 6881:6881/udp
+      - ./qbittorrent:/root/Downloads
+      - ./qbitconfig/config:/root/.config/qBittorrent
+      - ./qbitconfig/local:/root/.local/share/qBittorrent
     restart: always
   
   jackett:
@@ -25,3 +19,4 @@ services:
     ports:
       - "9117:9117"
     restart: always
+    
